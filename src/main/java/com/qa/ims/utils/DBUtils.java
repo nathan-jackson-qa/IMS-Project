@@ -18,7 +18,7 @@ public class DBUtils {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private final String DB_URL;
+	private final String DB_URL = "jdbc:mysql://34.105.147.154:3306";
 
 	private final String DB_USER;
 
@@ -31,7 +31,6 @@ public class DBUtils {
 		} catch (Exception e) {
 			LOGGER.error(e);
 		}
-		this.DB_URL = dbProps.getProperty("db.url", "");
 		this.DB_USER = dbProps.getProperty("db.user", "");
 		this.DB_PASS = dbProps.getProperty("db.password", "");
 	}
