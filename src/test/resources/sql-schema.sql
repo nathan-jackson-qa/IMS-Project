@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS ims;
+CREATE DATABASE IF NOT EXISTS ims;
 
 CREATE TABLE IF NOT EXISTS customers (
 customer_id INT NOT NULL AUTO_INCREMENT,
@@ -30,7 +30,4 @@ item_id INT NOT NULL,
 quantity int NOT NULL,
 FOREIGN KEY(order_id) REFERENCES orders(order_id),
 FOREIGN KEY(item_id) REFERENCES items(item_id)
-);
-
-
 );
