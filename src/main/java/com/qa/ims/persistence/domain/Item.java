@@ -13,7 +13,7 @@ public class Item {
 		this.cost = cost;
 	}
 	
-	public Item(long id, String itemName, int stock, double cost)
+	public Item(long id, String itemName, long stock, double cost)
 	{
 		this.id = id;
 		this.itemName = itemName;
@@ -57,7 +57,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "id:"+ id + ", itemName:" + itemName + ", stock:" + stock + ", cost:" + cost;
+		return "ID:"+ id + ", Item Name:" + itemName + ", Stock:" + stock + ", Cost:" + cost;
 	}
 
 

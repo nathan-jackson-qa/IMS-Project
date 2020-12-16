@@ -3,7 +3,9 @@ package com.qa.ims.persistence.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,13 +18,6 @@ public class ItemDAO implements Dao<Item>{
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-
-	
-	@Override
-	public List<Item> readAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Item create(Item item) {
@@ -50,17 +45,66 @@ public class ItemDAO implements Dao<Item>{
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Item> readAll() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("select * from ims.items");) {
+			List<Item> items = new ArrayList<>();
+			while (resultSet.next()) {
+				items.add(modelFromResultSet(resultSet));
+			}
+			return items;
+		} catch (SQLException e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
 
 	@Override
-	public Item update(Item t) {
-		// TODO Auto-generated method stub
+	public Item update(Item item) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("update ims.items set itemName ='" + item.getItemName() + "', stockCount ="
+					+ item.getStock() + ", price =" + item.getCost() + " where item_id =" + item.getId());
+			return readItem(item.getId());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	public Item readItem(Long id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM ims.items where item_id = " + id);) {
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
 
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+				return statement.executeUpdate("delete from ims.items where item_id = " + id);
+		}catch (SQLIntegrityConstraintViolationException f)	{
+			LOGGER.info("This item is currently in an order so cannot be deleted, please remove it from the corresponding order before trying to delete this");
+		}
+		catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+			LOGGER.info(e.getClass());
+		}
 		return 0;
+
 	}
 
 	@Override

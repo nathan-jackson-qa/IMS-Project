@@ -37,20 +37,34 @@ public class ItemController implements CrudController<Item>{
 
 	@Override
 	public List<Item> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Item> items = itemDAO.readAll();
+		for(Item i : items)
+		{
+			LOGGER.info(i.toString());
+		}
+		return items;
 	}
 
 	@Override
 	public Item update() {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.info("Enter the ID of the item you wish to edit:");
+		long id = utils.getLong();
+		LOGGER.info("What would you like the new product name to be?");
+		String itemName = utils.getString();
+		LOGGER.info("What is the new stock count of this item?");
+		long stockCount = utils.getLong();
+		LOGGER.info("And finally, what do you want the price of this item to be?");
+		double price = utils.getDouble();
+		Item item = itemDAO.update(new Item(id, itemName, stockCount, price));
+		LOGGER.info("Item updated!");
+		return item;
 	}
 
 	@Override
 	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+		LOGGER.info("Please enter the ID of the item you wish to delete:");
+		long id = utils.getLong();
+		return itemDAO.delete(id);
 	}
 	
 }
