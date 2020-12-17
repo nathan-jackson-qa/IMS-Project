@@ -57,6 +57,23 @@ public class OrderController implements CrudController<Order>{
 	
 	@Override
 	public List<Order> readAll() {
+		
+		LOGGER.info("What type of information would you like to read?");
+		LOGGER.info("ALL: List of all orders in the system");
+		LOGGER.info("SEARCH: Information on one order by ID");
+		LOGGER.info("PRICE: Find the total price of an order by ID");
+		String choice = utils.getString().toUpperCase();
+		switch(choice)
+		{
+		case "ALL" :
+			return readEverything();
+		case "SEARCH":
+			readByID();
+			return null;
+		case "PRICE":
+			getPrice();
+			return null;
+		}
 		List<Order> orders = orderDAO.readAll();
 		for(Order o : orders)
 		{
@@ -65,6 +82,28 @@ public class OrderController implements CrudController<Order>{
 		return null;
 	}
 
+	public List<Order> readEverything()
+	{
+		List<Order> orders = orderDAO.readAll();
+		for(Order o : orders)
+		{
+			LOGGER.info(o.toString());
+		}
+		return null;	
+	}
+	
+	public void readByID() {
+		LOGGER.info("Enter the ID of the order you want to display details of:");
+		long id = utils.getLong();
+		LOGGER.info(orderDAO.readOrder(id).toString());
+	}
+	
+	public void getPrice() {
+		LOGGER.info("Enter the ID you wish to calculate the total cost for:");
+		long id = utils.getLong();
+		LOGGER.info(orderDAO.totalPrice(id).displayPrice());
+	}
+	
 	@Override
 	public Order update() {
 		LOGGER.info("Enter the ID of the order you wish to edit: ");

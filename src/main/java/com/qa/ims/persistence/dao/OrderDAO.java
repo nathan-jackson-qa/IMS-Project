@@ -138,6 +138,32 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
+	public Order totalPrice(long id)
+	{
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT ims.orders_items.order_id, ROUND(SUM(ims.items.price*quantity),2) FROM ims.orders_items JOIN ims.items ON ims.orders_items.item_id = ims.items.item_id WHERE ims.orders_items.order_id = " + id + " GROUP BY ims.orders_items.order_id");){
+			resultSet.next();
+			return modelOrderPrice(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	public Order modelOrderPrice(ResultSet resultSet) throws SQLException
+	{
+		long id = resultSet.getLong(1);
+		double price = resultSet.getDouble(2);
+		Order order = new Order(id,price);
+		if(order != null)
+		{
+			System.out.println("Order exists");
+		}
+		return order;
+	}
+	
 	@Override
 	public Order update(Order t) {
 		// TODO Auto-generated method stub
