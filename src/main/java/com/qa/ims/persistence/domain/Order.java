@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Order {
 	long order_id;
 	long customer_id;
+	String dateOrdered;
 	HashMap<Long, Long> itemsOrdered = new HashMap<Long, Long>();
 	
 	public Order (long customer_id, HashMap<Long,Long> items)
@@ -18,6 +19,13 @@ public class Order {
 		this.order_id = order_id;
 		this.customer_id = customer_id;
 		this.itemsOrdered = items;
+	}
+	
+	public Order(long order_id, long customer_id, String dateOrdered)
+	{
+		this.order_id = order_id;
+		this.customer_id = customer_id;
+		this.dateOrdered = dateOrdered;
 	}
 	
 	public long getOrder_id() {
@@ -52,6 +60,11 @@ public class Order {
 	public void deleteItem(long itemID)
 	{
 		itemsOrdered.remove(itemID);
+	}
+
+	@Override
+	public String toString() {
+		return "Order ID: " + order_id + ", Customer ID: " + customer_id + ", Date Ordered: " + dateOrdered;
 	}
 	
 	
