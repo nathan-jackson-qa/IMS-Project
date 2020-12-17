@@ -67,10 +67,39 @@ public class OrderController implements CrudController<Order>{
 
 	@Override
 	public Order update() {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.info("Enter the ID of the order you wish to edit: ");
+		long id = utils.getLong();
+		LOGGER.info("What would like to do with this order?");
+		LOGGER.info("ADD: Add an item to the order");
+		LOGGER.info("REMOVE: Remove an item from the order");
+		String choice = utils.getString().toUpperCase();
+		Order order = null;
+		switch(choice) {
+		case "ADD" :
+			order = addToOrder(id);
+			break;
+		case "REMOVE" :
+			order = removeFromOrder();
+		}
+		return order;
 	}
 
+	public Order addToOrder(long order_id)
+	{
+		LOGGER.info("Enter the ID of the item you wish to add to the order:");
+		long item_ID = utils.getLong();
+		LOGGER.info("How many of this item do you want to add to this order?");
+		long quantity = utils.getLong();
+		Order order = orderDAO.addToOrder(order_id, item_ID, quantity);
+		LOGGER.info("Item Added!");
+		return order;
+	}
+	
+	public Order removeFromOrder()
+	{
+		return null;
+	}
+	
 	@Override
 	public int delete() {
 		// TODO Auto-generated method stub

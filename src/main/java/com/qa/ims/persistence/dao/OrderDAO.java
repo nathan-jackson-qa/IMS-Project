@@ -75,6 +75,19 @@ public class OrderDAO implements Dao<Order> {
 		return new ArrayList<>();
 	}
 
+	public Order readOrder(Long id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM ims.orders WHERE order_id =" + id);) {
+			resultSet.next();
+			return modelFromResultSet(resultSet);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	
 	@Override
 	public Order update(Order t) {
 		// TODO Auto-generated method stub
@@ -94,5 +107,39 @@ public class OrderDAO implements Dao<Order> {
 		String dateOrdered = resultSet.getString("placed");
 		return new Order(id, customer_id, dateOrdered);
 	}
+	
+	public Order addToOrder(long order_id, long item_id, long quantity)
+	{
+		try (Connection connection = DBUtils.getInstance().getConnection();
+			 Statement statement = connection.createStatement();)
+		{
+			statement.executeUpdate("INSERT INTO ims.orders_items VALUES (" + order_id  + ", " + item_id + ", " + quantity +")");
+			return readOrder(order_id);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	
+//	public Order removeFromOrder(long order_id, long item_id)
+//	{
+//		try (Connection connection = DBUtils.getInstance().getConnection();
+//				Statement statement = connection.createStatement();) {
+//			statement.executeUpdate("DELETE FROM ims.order_items WHERE );
+//		}
+//	}
+	
+//	public Order modelFromOrderDetailsJoin(ResultSet resultSet) throws SQLException {
+//		long id = resultSet.getLong("orders.order_id");
+//		long customer_id = resultSet.getLong("orders.customer_id");
+//		HashMap<Long,Long> items = new HashMap<Long,Long>();
+//		List<Long> item_IDs = new ArrayList<>();
+//		while (resultSet.next()) {
+//			long item_id = resultSet.getLong("orders_items.item_id");
+//			item_IDs.add("orders_items.item_id");
+//		}
+//		return new Order(id, customer_id, item_IDs);
+//	}
 
 }
