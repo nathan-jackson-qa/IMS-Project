@@ -72,14 +72,22 @@ public class OrderController implements CrudController<Order>{
 		LOGGER.info("What would like to do with this order?");
 		LOGGER.info("ADD: Add an item to the order");
 		LOGGER.info("REMOVE: Remove an item from the order");
+		LOGGER.info("CANCEL: Cancel amending order and return");
 		String choice = utils.getString().toUpperCase();
 		Order order = null;
 		switch(choice) {
 		case "ADD" :
 			order = addToOrder(id);
+			LOGGER.info("Item Added!");
 			break;
 		case "REMOVE" :
-			order = removeFromOrder();
+			order = removeFromOrder(id);
+			LOGGER.info("Item Removed!");
+			break;
+		case "CANCEL" :
+			return null;
+		default:
+			update();
 		}
 		return order;
 	}
@@ -91,19 +99,21 @@ public class OrderController implements CrudController<Order>{
 		LOGGER.info("How many of this item do you want to add to this order?");
 		long quantity = utils.getLong();
 		Order order = orderDAO.addToOrder(order_id, item_ID, quantity);
-		LOGGER.info("Item Added!");
 		return order;
 	}
 	
-	public Order removeFromOrder()
+	public Order removeFromOrder(long order_id)
 	{
-		return null;
+		LOGGER.info("Enter the ID of the item you wish to remove from this order:");
+		long item_id = utils.getLong();
+		return orderDAO.removeFromOrder(order_id, item_id);
 	}
 	
 	@Override
 	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+		LOGGER.info("Please enter the ID of the order you wish to delete:");
+		long id = utils.getLong();
+		return orderDAO.delete(id);
 	}
 
 }

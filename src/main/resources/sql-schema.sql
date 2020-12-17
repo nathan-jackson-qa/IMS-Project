@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS `ims`.`orders`(
 `order_id` INT(11) NOT NULL AUTO_INCREMENT,
 `customer_id` INT(11) NOT NULL,
 `placed` DATETIME DEFAULT CURRENT_TIMESTAMP,
-`fulfilled` DATETIME,
 PRIMARY KEY(order_id),
 FOREIGN KEY(customer_id) REFERENCES customers(customer_id)
 );

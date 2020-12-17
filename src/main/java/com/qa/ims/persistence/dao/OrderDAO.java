@@ -88,15 +88,18 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 	
-	@Override
-	public Order update(Order t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+				statement.executeUpdate("DELETE FROM ims.orders_items WHERE order_id =" + id);
+				return statement.executeUpdate("DELETE FROM ims.orders where order_id = " + id);
+		}catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+			LOGGER.info(e.getClass());
+		}
 		return 0;
 	}
 
@@ -122,13 +125,24 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 	
-//	public Order removeFromOrder(long order_id, long item_id)
-//	{
-//		try (Connection connection = DBUtils.getInstance().getConnection();
-//				Statement statement = connection.createStatement();) {
-//			statement.executeUpdate("DELETE FROM ims.order_items WHERE );
-//		}
-//	}
+	public Order removeFromOrder(long order_id, long item_id)
+	{
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("DELETE FROM ims.orders_items WHERE order_id =" + order_id + " AND item_id =" + item_id);
+			return readOrder(order_id);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public Order update(Order t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 //	public Order modelFromOrderDetailsJoin(ResultSet resultSet) throws SQLException {
 //		long id = resultSet.getLong("orders.order_id");
