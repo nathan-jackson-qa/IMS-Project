@@ -71,6 +71,7 @@ public class OrderController implements CrudController<Order>{
 		case "Return":
 			break;
 		default :
+			LOGGER.info("NOT A VALID COMMAND\n");
 			read();
 		}
 		return null;
@@ -132,11 +133,25 @@ public class OrderController implements CrudController<Order>{
 		switch(choice) {
 		case "ADD" :
 			order = addToOrder(id);
-			LOGGER.info("Item Added!");
+			if(order != null)
+			{
+				LOGGER.info("Item Added!");
+			}
+			else
+			{
+				LOGGER.info("Item could not be added, as the order ID and/or the item ID does not exists in the database\n");
+			}
 			break;
 		case "REMOVE" :
 			order = removeFromOrder(id);
-			LOGGER.info("Item Removed!");
+			if(order != null)
+			{
+				LOGGER.info("Item Removed!");
+			}
+			else
+			{
+				LOGGER.info("Item could not be removed, as the order ID does not exists in the database\n");
+			}
 			break;
 		case "CANCEL" :
 			return null;

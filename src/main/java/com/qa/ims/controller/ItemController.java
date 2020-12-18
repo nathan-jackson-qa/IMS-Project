@@ -73,8 +73,16 @@ public class ItemController implements CrudController<Item>{
 		LOGGER.info("And finally, what do you want the price of this item to be?");
 		double price = utils.getDouble();
 		Item item = itemDAO.update(new Item(id, itemName, stockCount, price));
-		LOGGER.info("Item updated!");
-		return item;
+		if(item != null)
+		{
+			LOGGER.info("Item updated!");
+			return item;
+		}
+		else
+		{
+			LOGGER.info("Update could not be carried out due to the ID not matching an item in the database");
+			return null;
+		}
 	}
 
 	@Override

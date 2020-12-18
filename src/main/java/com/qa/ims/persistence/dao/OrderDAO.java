@@ -170,16 +170,4 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 	
-//	public Order modelFromOrderDetailsJoin(ResultSet resultSet) throws SQLException {
-//		long id = resultSet.getLong("orders.order_id");
-//		long customer_id = resultSet.getLong("orders.customer_id");
-//		HashMap<Long,Long> items = new HashMap<Long,Long>();
-//		List<Long> item_IDs = new ArrayList<>();
-//		while (resultSet.next()) {
-//			long item_id = resultSet.getLong("orders_items.item_id");
-//			item_IDs.add("orders_items.item_id");
-//		}
-//		return new Order(id, customer_id, item_IDs);
-//	}
-
 }

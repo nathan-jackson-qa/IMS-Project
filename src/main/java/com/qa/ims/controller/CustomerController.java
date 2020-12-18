@@ -81,8 +81,16 @@ public class CustomerController implements CrudController<Customer> {
 		LOGGER.info("Please enter a last name");
 		String surname = utils.getString();
 		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
-		LOGGER.info("Customer Updated");
-		return customer;
+		if(customer!=null) 
+		{
+			LOGGER.info("Customer Updated");
+			return customer;
+		}
+		else
+		{
+			LOGGER.info("Update could not be carried out due to the ID not matching a customer in the database");
+			return null;
+		}
 	}
 
 	/**
