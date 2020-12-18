@@ -43,8 +43,16 @@ public class CustomerController implements CrudController<Customer> {
 		LOGGER.info("Please enter the ID of the customer you wish to view");
 		long id = utils.getLong();
 		Customer customer = customerDAO.readCustomer(id);
-		LOGGER.info(customer.toString());
-		return customer;
+		if(customer != null) 
+		{
+			LOGGER.info(customer.toString() + "\n");
+			return customer;
+		}
+		else
+		{
+			LOGGER.info("This ID does not match that of a customer in the database so could not be retrieved\n");
+			return null;
+		}
 	}
 
 	/**

@@ -40,8 +40,16 @@ public class ItemController implements CrudController<Item>{
 		LOGGER.info("Please enter the ID of the item you wish to view");
 		long id = utils.getLong();
 		Item item = itemDAO.readItem(id);
-		LOGGER.info(item.toString());
-		return item;
+		if(item != null)
+		{
+			LOGGER.info(item.toString());
+			return item;
+		}
+		else
+		{
+			LOGGER.info("This ID does not match an item in the system so could not be retrieved");
+			return null;
+		}
 	}
 	
 	@Override

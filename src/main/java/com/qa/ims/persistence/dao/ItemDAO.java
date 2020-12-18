@@ -56,7 +56,7 @@ public class ItemDAO implements Dao<Item>{
 				items.add(modelFromResultSet(resultSet));
 			}
 			return items;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}

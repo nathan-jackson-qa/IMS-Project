@@ -91,16 +91,32 @@ public class OrderController implements CrudController<Order>{
 		LOGGER.info("Enter the ID of the order you want to display details of:");
 		long id = utils.getLong();
 		Order order = orderDAO.readOrder(id);
-		LOGGER.info(order.toString());
-		return order;
+		if(order != null)
+		{
+			LOGGER.info(order.toString());
+			return order;
+		}
+		else
+		{
+			LOGGER.info("This ID does not match an order in the system so could not be retrieved");
+			return null;
+		}
 	}
 	
 	public Order getPrice() {
 		LOGGER.info("Enter the ID you wish to calculate the total cost for:");
 		long id = utils.getLong();
 		Order order = orderDAO.totalPrice(id);
-		LOGGER.info(order.displayPrice());
-		return order;
+		if(order != null)
+		{
+			LOGGER.info(order.displayPrice());
+			return order;
+		}
+		else
+		{
+			LOGGER.info("This ID does not match an order in the system so could not be retrieved");
+			return null;
+		}
 	}
 	
 	@Override
