@@ -38,6 +38,15 @@ public class CustomerController implements CrudController<Customer> {
 		return customers;
 	}
 
+	@Override
+	public Customer read() {
+		LOGGER.info("Please enter the ID of the customer you wish to view");
+		long id = utils.getLong();
+		Customer customer = customerDAO.readCustomer(id);
+		LOGGER.info(customer.toString());
+		return customer;
+	}
+
 	/**
 	 * Creates a customer by taking in user input
 	 */
@@ -79,5 +88,6 @@ public class CustomerController implements CrudController<Customer> {
 		Long id = utils.getLong();
 		return customerDAO.delete(id);
 	}
+
 
 }
