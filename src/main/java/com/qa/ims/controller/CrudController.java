@@ -7,7 +7,9 @@ import java.util.List;
  * to be sent to a service class
  */
 public interface CrudController<T> {
-
+	
+	T read();
+	
 	List<T> readAll();
 
 	T create();

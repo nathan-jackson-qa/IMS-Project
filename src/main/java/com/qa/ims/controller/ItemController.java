@@ -36,6 +36,15 @@ public class ItemController implements CrudController<Item>{
 	}
 
 	@Override
+	public Item read() {
+		LOGGER.info("Please enter the ID of the item you wish to view");
+		long id = utils.getLong();
+		Item item = itemDAO.readItem(id);
+		LOGGER.info(item.toString());
+		return item;
+	}
+	
+	@Override
 	public List<Item> readAll() {
 		List<Item> items = itemDAO.readAll();
 		for(Item i : items)
@@ -66,5 +75,6 @@ public class ItemController implements CrudController<Item>{
 		long id = utils.getLong();
 		return itemDAO.delete(id);
 	}
+
 	
 }

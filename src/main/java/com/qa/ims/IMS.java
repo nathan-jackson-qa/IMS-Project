@@ -95,6 +95,9 @@ public class IMS {
 			crudController.create();
 			break;
 		case READ:
+			crudController.read();
+			break;
+		case READ_ALL:
 			crudController.readAll();
 			break;
 		case UPDATE:

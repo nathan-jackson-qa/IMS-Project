@@ -56,52 +56,51 @@ public class OrderController implements CrudController<Order>{
 	}
 	
 	@Override
-	public List<Order> readAll() {
-		
+	public Order read() {
 		LOGGER.info("What type of information would you like to read?");
-		LOGGER.info("ALL: List of all orders in the system");
 		LOGGER.info("SEARCH: Information on one order by ID");
 		LOGGER.info("PRICE: Find the total price of an order by ID");
+		LOGGER.info("RETURN: Return to the previous menu");
 		String choice = utils.getString().toUpperCase();
 		switch(choice)
 		{
-		case "ALL" :
-			return readEverything();
 		case "SEARCH":
-			readByID();
-			return null;
+			return readByID();
 		case "PRICE":
-			getPrice();
-			return null;
-		}
-		List<Order> orders = orderDAO.readAll();
-		for(Order o : orders)
-		{
-			LOGGER.info(o.toString());
+			return getPrice();
+		case "Return":
+			break;
+		default :
+			read();
 		}
 		return null;
 	}
 
-	public List<Order> readEverything()
-	{
+	@Override
+	public List<Order> readAll() {
+		
 		List<Order> orders = orderDAO.readAll();
 		for(Order o : orders)
 		{
 			LOGGER.info(o.toString());
 		}
-		return null;	
+		return orders;
 	}
 	
-	public void readByID() {
+	public Order readByID() {
 		LOGGER.info("Enter the ID of the order you want to display details of:");
 		long id = utils.getLong();
-		LOGGER.info(orderDAO.readOrder(id).toString());
+		Order order = orderDAO.readOrder(id);
+		LOGGER.info(order.toString());
+		return order;
 	}
 	
-	public void getPrice() {
+	public Order getPrice() {
 		LOGGER.info("Enter the ID you wish to calculate the total cost for:");
 		long id = utils.getLong();
-		LOGGER.info(orderDAO.totalPrice(id).displayPrice());
+		Order order = orderDAO.totalPrice(id);
+		LOGGER.info(order.displayPrice());
+		return order;
 	}
 	
 	@Override
