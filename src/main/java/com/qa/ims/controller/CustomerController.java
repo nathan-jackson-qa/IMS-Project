@@ -83,12 +83,12 @@ public class CustomerController implements CrudController<Customer> {
 		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
 		if(customer!=null) 
 		{
-			LOGGER.info("Customer Updated");
+			LOGGER.info("Customer Updated!\n");
 			return customer;
 		}
 		else
 		{
-			LOGGER.info("Update could not be carried out due to the ID not matching a customer in the database");
+			LOGGER.info("Update could not be carried out due to the ID not matching a customer in the database\n");
 			return null;
 		}
 	}
@@ -102,7 +102,16 @@ public class CustomerController implements CrudController<Customer> {
 	public int delete() {
 		LOGGER.info("Please enter the id of the customer you would like to delete");
 		Long id = utils.getLong();
-		return customerDAO.delete(id);
+		int returned = customerDAO.delete(id);
+		if(returned == 0)
+		{
+			LOGGER.info("Customer could not be deleted as that customer ID does not exist\n");
+		}
+		else
+		{
+			LOGGER.info("Customer deleted!\n");
+		}
+		return returned;
 	}
 
 
