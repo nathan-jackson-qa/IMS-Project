@@ -122,15 +122,6 @@ public class CustomerDAO implements Dao<Customer> {
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			ResultSet rs = statement.executeQuery("SELECT * FROM ims.orders_items WHERE order_id = (SELECT order_id FROM ims.orders WHERE customer_id = " + id  +")");
-			int i = 0;
-			while(i <= rs.getRow())
-			{
-				statement.executeUpdate("DELETE FROM ims.orders_items WHERE order_id = (SELECT order_id FROM ims.orders WHERE customer_id = " + id + " LIMIT 1)");
-				statement.executeUpdate("DELETE FROM ims.orders WHERE customer_id = " + id + " LIMIT 1");
-				i++;
-			}
-//			rs.close();
 			return statement.executeUpdate("delete from ims.customers where customer_id = " + id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
