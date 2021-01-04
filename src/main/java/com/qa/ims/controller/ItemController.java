@@ -75,12 +75,12 @@ public class ItemController implements CrudController<Item>{
 		Item item = itemDAO.update(new Item(id, itemName, stockCount, price));
 		if(item != null)
 		{
-			LOGGER.info("Item updated!");
+			LOGGER.info("Item updated!\n");
 			return item;
 		}
 		else
 		{
-			LOGGER.info("Update could not be carried out due to the ID not matching an item in the database");
+			LOGGER.info("Update could not be carried out due to the ID not matching an item in the database\n");
 			return null;
 		}
 	}
@@ -89,7 +89,16 @@ public class ItemController implements CrudController<Item>{
 	public int delete() {
 		LOGGER.info("Please enter the ID of the item you wish to delete:");
 		long id = utils.getLong();
-		return itemDAO.delete(id);
+		int returned = itemDAO.delete(id);
+		if(returned == 0)
+		{
+			LOGGER.info("Item could not be deleted as that item ID does not exist\n");
+		}
+		else
+		{
+			LOGGER.info("Item deleted!\n");
+		}
+		return returned;
 	}
 
 	

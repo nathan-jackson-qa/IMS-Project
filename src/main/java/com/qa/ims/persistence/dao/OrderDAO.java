@@ -111,31 +111,29 @@ public class OrderDAO implements Dao<Order> {
 		return new Order(id, customer_id, dateOrdered);
 	}
 	
-	public Order addToOrder(long order_id, long item_id, long quantity)
+	public int addToOrder(long order_id, long item_id, long quantity)
 	{
 		try (Connection connection = DBUtils.getInstance().getConnection();
 			 Statement statement = connection.createStatement();)
 		{
-			statement.executeUpdate("INSERT INTO ims.orders_items VALUES (" + order_id  + ", " + item_id + ", " + quantity +")");
-			return readOrder(order_id);
+			return statement.executeUpdate("INSERT INTO ims.orders_items VALUES (" + order_id  + ", " + item_id + ", " + quantity +")");
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return 0;
 	}
 	
-	public Order removeFromOrder(long order_id, long item_id)
+	public int removeFromOrder(long order_id, long item_id)
 	{
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("DELETE FROM ims.orders_items WHERE order_id =" + order_id + " AND item_id =" + item_id);
-			return readOrder(order_id);
+			return statement.executeUpdate("DELETE FROM ims.orders_items WHERE order_id =" + order_id + " AND item_id =" + item_id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return 0;
 	}
 
 	public Order totalPrice(long id)
