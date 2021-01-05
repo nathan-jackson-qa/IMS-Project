@@ -68,7 +68,7 @@ public class OrderController implements CrudController<Order>{
 			return readByID();
 		case "PRICE":
 			return getPrice();
-		case "Return":
+		case "RETURN":
 			break;
 		default :
 			LOGGER.info("NOT A VALID COMMAND\n");
