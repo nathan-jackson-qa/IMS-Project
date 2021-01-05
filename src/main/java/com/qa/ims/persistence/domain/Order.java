@@ -29,6 +29,15 @@ public class Order {
 		this.dateOrdered = dateOrdered;
 	}
 	
+	public Order(long order_id, long customer_id, double price, String dateOrdered, HashMap<Long, Long> itemsOrdered) {
+		super();
+		this.order_id = order_id;
+		this.customer_id = customer_id;
+		this.price = price;
+		this.dateOrdered = dateOrdered;
+		this.itemsOrdered = itemsOrdered;
+	}
+
 	public Order(long order_id, double price)
 	{
 		this.order_id = order_id;
@@ -49,6 +58,14 @@ public class Order {
 
 	public void setCustomer_id(long customer_id) {
 		this.customer_id = customer_id;
+	}
+	
+	public String getDateOrdered() {
+		return dateOrdered;
+	}
+	
+	public void setDateOrdered(String dateOrdered) {
+		this.dateOrdered = dateOrdered;
 	}
 
 	public HashMap<Long, Long> getItemsOrdered() {

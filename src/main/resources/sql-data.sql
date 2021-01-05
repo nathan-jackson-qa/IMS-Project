@@ -5,11 +5,11 @@ INSERT INTO `customers` (`firstName`, `lastName`) VALUES ('Jordan', 'Jones');
 INSERT INTO `customers` (`firstName`, `lastName`) VALUES ('Luke', 'Lohan');
 INSERT INTO `customers` (`firstName`, `lastName`) VALUES ('Mike', 'Monroe');
 
-INSERT INTO `orders` (`customer_id`) VALUES ('1');
-INSERT INTO `orders` (`customer_id`) VALUES ('2');
-INSERT INTO `orders` (`customer_id`) VALUES ('3');
-INSERT INTO `orders` (`customer_id`) VALUES ('4');
-INSERT INTO `orders` (`customer_id`) VALUES ('5');
+INSERT INTO `orders` (`customer_id`, `placed`) VALUES ('1', '2020-12-08 12:32:09');
+INSERT INTO `orders` (`customer_id`, `placed`) VALUES ('2', '2020-12-11 14:07:22');
+INSERT INTO `orders` (`customer_id`, `placed`) VALUES ('3', '2020-12-15 07:24:01');
+INSERT INTO `orders` (`customer_id`, `placed`) VALUES ('4', '2020-12-19 21:57:43');
+INSERT INTO `orders` (`customer_id`, `placed`) VALUES ('5', '2020-12-22 19:34:59');
 
 INSERT INTO `items` (`itemName`, `stockCount`, `price`) VALUES ('Mango', 100, 0.99);
 INSERT INTO `items` (`itemName`, `stockCount`, `price`) VALUES ('Apple', 100, 1.50);
