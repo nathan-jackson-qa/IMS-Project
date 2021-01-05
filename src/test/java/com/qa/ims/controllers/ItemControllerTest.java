@@ -2,6 +2,9 @@ package com.qa.ims.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.qa.ims.controller.ItemController;
@@ -37,16 +39,16 @@ public class ItemControllerTest {
 		final double price = 1.99;
 		final Item created = new Item(name,stock,price);
 		
-		Mockito.when(utils.getString()).thenReturn(name);
-		Mockito.when(utils.getLong()).thenReturn(stock);
-		Mockito.when(utils.getDouble()).thenReturn(price);
-		Mockito.when(dao.create(created)).thenReturn(created);
+		when(utils.getString()).thenReturn(name);
+		when(utils.getLong()).thenReturn(stock);
+		when(utils.getDouble()).thenReturn(price);
+		when(dao.create(created)).thenReturn(created);
 		
 		assertEquals(created, controller.create());
-		Mockito.verify(utils, Mockito.times(1)).getString();
-		Mockito.verify(utils, Mockito.times(1)).getLong();
-		Mockito.verify(utils, Mockito.times(1)).getDouble();
-		Mockito.verify(dao, Mockito.times(1)).create(created);
+		verify(utils, times(1)).getString();
+		verify(utils, times(1)).getLong();
+		verify(utils, times(1)).getDouble();
+		verify(dao, times(1)).create(created);
 	}
 	
 	@Test
@@ -54,86 +56,86 @@ public class ItemControllerTest {
 		List<Item> items = new ArrayList<>();
 		items.add(new Item("Apple", 100L, 0.99));
 		
-		Mockito.when(dao.readAll()).thenReturn(items);
+		when(dao.readAll()).thenReturn(items);
 		
 		assertEquals(items, controller.readAll());
 		
-		Mockito.verify(dao, Mockito.times(1)).readAll();
+		verify(dao, times(1)).readAll();
 	}
 	
 	@Test
 	public void testRead() {
 		final Item item = new Item(1L, "Banana", 100L, 1.50);
 		
-		Mockito.when(utils.getLong()).thenReturn(1L);
-		Mockito.when(dao.readItem(1L)).thenReturn(item);
+		when(utils.getLong()).thenReturn(1L);
+		when(dao.readItem(1L)).thenReturn(item);
 		
 		assertEquals(item, controller.read());
-		Mockito.verify(dao, Mockito.times(1)).readItem(1L);
+		verify(dao, times(1)).readItem(1L);
 	}
 	
 	@Test
 	public void testFalseRead() {
 		final Item item = new Item(1L, "Banana", 100L, 1.50);
 		
-		Mockito.when(utils.getLong()).thenReturn(100L);
-		Mockito.when(dao.readItem(100L)).thenReturn(null);
+		when(utils.getLong()).thenReturn(100L);
+		when(dao.readItem(100L)).thenReturn(null);
 		
 		assertNotEquals(item, controller.read());
-		Mockito.verify(dao, Mockito.times(1)).readItem(100L);
+		verify(dao, times(1)).readItem(100L);
 	}
 	
 	@Test
 	public void testUpdate() {
 		Item updated = new Item(1L, "Kiwi", 85L, 0.72);
 		
-		Mockito.when(utils.getLong()).thenReturn(updated.getId(), updated.getStock());
-		Mockito.when(utils.getString()).thenReturn(updated.getItemName());
-		Mockito.when(utils.getDouble()).thenReturn(updated.getCost());
-		Mockito.when(dao.update(updated)).thenReturn(updated);
+		when(utils.getLong()).thenReturn(updated.getId(), updated.getStock());
+		when(utils.getString()).thenReturn(updated.getItemName());
+		when(utils.getDouble()).thenReturn(updated.getCost());
+		when(dao.update(updated)).thenReturn(updated);
 		
 		assertEquals(updated, controller.update());
-		Mockito.verify(utils, Mockito.times(2)).getLong();
-		Mockito.verify(utils, Mockito.times(1)).getString();
-		Mockito.verify(utils, Mockito.times(1)).getDouble();
-		Mockito.verify(dao, Mockito.times(1)).update(updated);
+		verify(utils, times(2)).getLong();
+		verify(utils, times(1)).getString();
+		verify(utils, times(1)).getDouble();
+		verify(dao, times(1)).update(updated);
 	}
 	
 	@Test
 	public void testFalseUpdate() {
 		Item updated = new Item(100L, "Kiwi", 8000L, 15.82);
 		
-		Mockito.when(utils.getLong()).thenReturn(updated.getId(), updated.getStock());
-		Mockito.when(utils.getString()).thenReturn(updated.getItemName());
-		Mockito.when(utils.getDouble()).thenReturn(updated.getCost());
-		Mockito.when(dao.update(updated)).thenReturn(null);
+		when(utils.getLong()).thenReturn(updated.getId(), updated.getStock());
+		when(utils.getString()).thenReturn(updated.getItemName());
+		when(utils.getDouble()).thenReturn(updated.getCost());
+		when(dao.update(updated)).thenReturn(null);
 		
 		assertNotEquals(updated, controller.update());
-		Mockito.verify(utils, Mockito.times(2)).getLong();
-		Mockito.verify(utils, Mockito.times(1)).getString();
-		Mockito.verify(utils, Mockito.times(1)).getDouble();
-		Mockito.verify(dao, Mockito.times(1)).update(updated);
+		verify(utils, times(2)).getLong();
+		verify(utils, times(1)).getString();
+		verify(utils, times(1)).getDouble();
+		verify(dao, times(1)).update(updated);
 	}
 	
 	@Test
 	public void testDelete() {
 		final long ID = 1L;
 		
-		Mockito.when(utils.getLong()).thenReturn(ID);
-		Mockito.when(dao.delete(ID)).thenReturn(1);
+		when(utils.getLong()).thenReturn(ID);
+		when(dao.delete(ID)).thenReturn(1);
 		
 		assertEquals(1, controller.delete());
-		Mockito.verify(dao, Mockito.times(1)).delete(ID);
+		verify(dao, times(1)).delete(ID);
 	}
 	
 	@Test
 	public void testFalseDelete() {
 		final long ID = 100L;
 		
-		Mockito.when(utils.getLong()).thenReturn(ID);
-		Mockito.when(dao.delete(ID)).thenReturn(0);
+		when(utils.getLong()).thenReturn(ID);
+		when(dao.delete(ID)).thenReturn(0);
 		
 		assertNotEquals(1, controller.delete());
-		Mockito.verify(dao, Mockito.times(1)).delete(ID);
+		verify(dao, times(1)).delete(ID);
 	}
 }
