@@ -24,28 +24,21 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO ims.orders(customer_id) values(" + order.getCustomer_id() + ")");
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-			return null;
-		}
-		HashMap<Long,Long> items = order.getItemsOrdered();
-		for(Entry<Long,Long> i : items.entrySet())
-		{
-			try (Connection connection = DBUtils.getInstance().getConnection();
-					Statement statement = connection.createStatement();) {
+			HashMap<Long,Long> items = order.getItemsOrdered();
+			for(Entry<Long,Long> i : items.entrySet())
+			{
 				statement.executeUpdate("INSERT INTO ims.orders_items(order_id, item_id, quantity) values(" + readLatest().getOrder_id() + ","
-						+ i.getKey() + "," + i.getValue() + ")");
-			} catch (Exception e) {
+					+ i.getKey() + "," + i.getValue() + ")");
+			}
+		} catch (Exception e) {
 				LOGGER.debug(e);
 				LOGGER.error(e.getMessage());
 				return null;
 			}
-		}
 		return readLatest();
 	}
 
-	private Order readLatest() {
+	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM ims.orders ORDER BY order_id DESC LIMIT 1");) {
@@ -155,10 +148,6 @@ public class OrderDAO implements Dao<Order> {
 		long id = resultSet.getLong(1);
 		double price = resultSet.getDouble(2);
 		Order order = new Order(id,price);
-		if(order != null)
-		{
-			System.out.println("Order exists");
-		}
 		return order;
 	}
 	

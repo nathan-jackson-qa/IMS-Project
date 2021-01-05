@@ -3,7 +3,6 @@ package com.qa.ims.persistence.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +94,6 @@ public class ItemDAO implements Dao<Item>{
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 				return statement.executeUpdate("delete from ims.items where item_id = " + id);
-		}catch (SQLIntegrityConstraintViolationException f)	{
-			LOGGER.info("This item is currently in an order so cannot be deleted, please remove it from the corresponding order before trying to delete this");
 		}
 		catch (Exception e) {
 			LOGGER.debug(e);
