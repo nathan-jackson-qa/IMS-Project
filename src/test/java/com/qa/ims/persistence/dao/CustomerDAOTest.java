@@ -54,7 +54,6 @@ public class CustomerDAOTest {
 	public void testUpdate() {
 		final Customer updated = new Customer(1L, "Chris", "Perrins");
 		assertEquals(updated, DAO.update(updated));
-
 	}
 
 	@Test
