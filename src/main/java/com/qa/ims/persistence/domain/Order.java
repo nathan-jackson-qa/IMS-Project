@@ -60,14 +60,6 @@ public class Order {
 	public void setCustomer_id(long customer_id) {
 		this.customer_id = customer_id;
 	}
-	
-	public String getDateOrdered() {
-		return dateOrdered;
-	}
-	
-	public void setDateOrdered(String dateOrdered) {
-		this.dateOrdered = dateOrdered;
-	}
 
 	public HashMap<Long, Long> getItemsOrdered() {
 		return itemsOrdered;
@@ -86,8 +78,6 @@ public class Order {
 	{
 		itemsOrdered.remove(itemID);
 	}
-
-	
 	
 	public double getPrice() {
 		return price;
