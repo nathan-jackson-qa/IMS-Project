@@ -25,7 +25,7 @@ public class Item {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -41,7 +41,7 @@ public class Item {
 		return stock;
 	}
 
-	public void setStock(int stock) {
+	public void setStock(long stock) {
 		this.stock = stock;
 	}
 
