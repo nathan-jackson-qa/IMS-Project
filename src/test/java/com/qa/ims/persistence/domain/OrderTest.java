@@ -18,7 +18,7 @@ public class OrderTest {
 	public void setup() {
 		items.put(1L, 8L);
 		items.put(2L, 10L);
-		order = new Order(1L, 2L, items);
+		order = new Order(1L, 2L, 0.11, "01/01/2000", items);
 	}
 	
 	@Test
@@ -28,7 +28,8 @@ public class OrderTest {
 	
 	@Test
 	public void testGetOrderID() {
-		assertEquals(1L, order.getOrder_id());
+		Order newOrder = new Order(1L, 2L, items);
+		assertEquals(1L, newOrder.getOrder_id());
 	}
 	
 	@Test

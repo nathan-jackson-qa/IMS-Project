@@ -32,11 +32,6 @@ public class OrderDAOFailureTest {
 	}
 	
 	@Test
-	public void testReadLatest() {
-		assertEquals(null, dao.readLatest());
-	}
-	
-	@Test
 	public void testRead() {
 		assertEquals(null, dao.readOrder(1L));
 	}
