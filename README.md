@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 In order to run this .jar file you will need to have java installed on your machine (Version 14 was used for development so is recommended), and must be able to run from a command line interface.
 
 ```
-Java Version 14 can be found [here](https://www.oracle.com/uk/java/technologies/javase/jdk14-archive-downloads.html)
+Java Version 14 can be found [here](https://www.oracle.com/uk/java/technologies/javase/jdk14-archive-downloads)
 ```
 
 ### Installing
@@ -41,29 +41,14 @@ C:\Users\Me\Project_Location\IMS_Project> java -jar IMS-System
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+In order to run the tests for this project, simply open the cmd line in the location that the project is stored, then type mvn test and all unit tests will be carried out
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
+When running the command give in the section above, maven will automatically run all the tests for the Customer, Item and Order objects, as well as the respective Controllers and DAOs for each of those 3. This will test every line of code in each class including outcomes from every conditional throughout
 
 ```
-Give an example
-```
-
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+C:\Users\Me\Project_Location\IMS_Project> mvn test
 ```
 
 ## Deployment
