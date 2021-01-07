@@ -9,10 +9,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-In order to run this .jar file you will need to have java installed on your machine (Version 14 was used for development so is recommended), and must be able to run from a command line interface.
+In order to run this .jar file you will need to have both Java and Maven installed on your machine (Java Version 14 was used for development so is recommended), and must be able to run from a command line interface.
 
 ```
 Java Version 14 can be found on the oracle website here: <https://www.oracle.com>
+Maven installion instructions can be found here: <https://maven.apache.org/install.html>
 ```
 
 ### Installing
