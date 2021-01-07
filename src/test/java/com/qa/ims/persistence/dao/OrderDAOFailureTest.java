@@ -33,7 +33,7 @@ public class OrderDAOFailureTest {
 	
 	@Test
 	public void testRead() {
-		assertEquals(null, dao.readOrder(1L));
+		assertEquals(null, dao.read(1L));
 	}
 	
 	@Test

@@ -68,7 +68,7 @@ public class ItemDAO implements Dao<Item>{
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("update ims.items set itemName ='" + item.getItemName() + "', stockCount ="
 					+ item.getStock() + ", price =" + item.getCost() + " where item_id =" + item.getId());
-			return readItem(item.getId());
+			return read(item.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -76,7 +76,7 @@ public class ItemDAO implements Dao<Item>{
 		return null;
 	}
 	
-	public Item readItem(Long id) {
+	public Item read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM ims.items where item_id = " + id);) {

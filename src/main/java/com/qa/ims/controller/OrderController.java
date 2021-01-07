@@ -91,7 +91,7 @@ public class OrderController implements CrudController<Order>{
 	public Order readByID() {
 		LOGGER.info("Enter the ID of the order you want to display details of:");
 		long id = utils.getLong();
-		Order order = orderDAO.readOrder(id);
+		Order order = orderDAO.read(id);
 		if(order != null)
 		{
 			LOGGER.info(order.toString());
@@ -124,7 +124,7 @@ public class OrderController implements CrudController<Order>{
 	public Order update() {
 		LOGGER.info("Enter the ID of the order you wish to edit: ");
 		long id = utils.getLong();
-		if(orderDAO.readOrder(id) == null)
+		if(orderDAO.read(id) == null)
 		{
 			LOGGER.info("ID does not match an order in the system\n");
 			return null;

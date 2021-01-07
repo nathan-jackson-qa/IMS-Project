@@ -70,12 +70,12 @@ public class OrderControllerTest {
 		
 		when(utils.getString()).thenReturn("SEARCH");
 		when(utils.getLong()).thenReturn(1L);
-		when(dao.readOrder(1L)).thenReturn(order);
+		when(dao.read(1L)).thenReturn(order);
 		
 		assertEquals(order, controller.read());
 		verify(utils, times(1)).getString();
 		verify(utils, times(1)).getLong();
-		verify(dao, times(1)).readOrder(1L);
+		verify(dao, times(1)).read(1L);
 		
 	}
 	
@@ -85,12 +85,12 @@ public class OrderControllerTest {
 		
 		when(utils.getString()).thenReturn("SEARCH");
 		when(utils.getLong()).thenReturn(100L);
-		when(dao.readOrder(100L)).thenReturn(null);
+		when(dao.read(100L)).thenReturn(null);
 		
 		assertNotEquals(order, controller.read());
 		verify(utils, times(1)).getString();
 		verify(utils, times(1)).getLong();
-		verify(dao, times(1)).readOrder(100L);
+		verify(dao, times(1)).read(100L);
 	}
 	
 	@Test
@@ -141,13 +141,13 @@ public class OrderControllerTest {
 		
 		when(utils.getLong()).thenReturn(orderID, itemID, quantity);
 		when(utils.getString()).thenReturn("ADD");
-		when(dao.readOrder(orderID)).thenReturn(order);
+		when(dao.read(orderID)).thenReturn(order);
 		when(dao.addToOrder(orderID, itemID, quantity)).thenReturn(1);
 	
 		
 		assertEquals(null, controller.update());
 		verify(utils, times(3)).getLong();
-		verify(dao, times(1)).readOrder(orderID);
+		verify(dao, times(1)).read(orderID);
 		verify(dao, times(1)).addToOrder(orderID, itemID, quantity);
 	}
 	
@@ -163,13 +163,13 @@ public class OrderControllerTest {
 		
 		when(utils.getLong()).thenReturn(orderID, itemID, quantity);
 		when(utils.getString()).thenReturn("ADD");
-		when(dao.readOrder(orderID)).thenReturn(order);
+		when(dao.read(orderID)).thenReturn(order);
 		when(dao.addToOrder(orderID, itemID, quantity)).thenReturn(0);
 	
 		
 		assertEquals(null, controller.update());
 		verify(utils, times(3)).getLong();
-		verify(dao, times(1)).readOrder(orderID);
+		verify(dao, times(1)).read(orderID);
 		verify(dao, times(1)).addToOrder(orderID, itemID, quantity);
 	}
 	
@@ -184,13 +184,13 @@ public class OrderControllerTest {
 		
 		when(utils.getLong()).thenReturn(orderID, itemID);
 		when(utils.getString()).thenReturn("REMOVE");
-		when(dao.readOrder(orderID)).thenReturn(order);
+		when(dao.read(orderID)).thenReturn(order);
 		when(dao.removeFromOrder(orderID, itemID)).thenReturn(1);
 	
 		
 		assertEquals(null, controller.update());
 		verify(utils, times(2)).getLong();
-		verify(dao, times(1)).readOrder(orderID);
+		verify(dao, times(1)).read(orderID);
 		verify(dao, times(1)).removeFromOrder(orderID, itemID);
 	}
 	
@@ -205,24 +205,24 @@ public class OrderControllerTest {
 		
 		when(utils.getLong()).thenReturn(orderID, itemID);
 		when(utils.getString()).thenReturn("REMOVE");
-		when(dao.readOrder(orderID)).thenReturn(order);
+		when(dao.read(orderID)).thenReturn(order);
 		when(dao.removeFromOrder(orderID, itemID)).thenReturn(0);
 	
 		
 		assertEquals(null, controller.update());
 		verify(utils, times(2)).getLong();
-		verify(dao, times(1)).readOrder(orderID);
+		verify(dao, times(1)).read(orderID);
 		verify(dao, times(1)).removeFromOrder(orderID, itemID);
 	}
 	
 	@Test
 	public void testUpdateWrongID() {
 		when(utils.getLong()).thenReturn(100L);
-		when(dao.readOrder(100L)).thenReturn(null);
+		when(dao.read(100L)).thenReturn(null);
 		
 		assertEquals(null, controller.update());
 		verify(utils, times(1)).getLong();
-		verify(dao, times(1)).readOrder(100L);
+		verify(dao, times(1)).read(100L);
 	}
 	
 	@Test
@@ -235,11 +235,11 @@ public class OrderControllerTest {
 		
 		when(utils.getLong()).thenReturn(1L);
 		when(utils.getString()).thenReturn("wrong", "CANCEL");
-		when(dao.readOrder(1L)).thenReturn(order);
+		when(dao.read(1L)).thenReturn(order);
 		
 		assertEquals(null, controller.update());
 		verify(utils, times(2)).getLong();
-		verify(dao, times(2)).readOrder(1L);
+		verify(dao, times(2)).read(1L);
 	}
 	
 	@Test

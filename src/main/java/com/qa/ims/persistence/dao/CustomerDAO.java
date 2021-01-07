@@ -79,7 +79,7 @@ public class CustomerDAO implements Dao<Customer> {
 		return null;
 	}
 
-	public Customer readCustomer(Long id) {
+	public Customer read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM ims.customers where customer_id = " + id);) {
@@ -105,7 +105,7 @@ public class CustomerDAO implements Dao<Customer> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("update ims.customers set firstName ='" + customer.getFirstName() + "', lastName ='"
 					+ customer.getSurname() + "' where customer_id =" + customer.getId());
-			return readCustomer(customer.getId());
+			return read(customer.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());

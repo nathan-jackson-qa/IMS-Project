@@ -42,7 +42,7 @@ public class CustomerController implements CrudController<Customer> {
 	public Customer read() {
 		LOGGER.info("Please enter the ID of the customer you wish to view");
 		long id = utils.getLong();
-		Customer customer = customerDAO.readCustomer(id);
+		Customer customer = customerDAO.read(id);
 		if(customer != null) 
 		{
 			LOGGER.info(customer.toString() + "\n");

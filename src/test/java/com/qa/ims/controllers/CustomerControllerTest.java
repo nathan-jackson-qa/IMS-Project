@@ -61,10 +61,10 @@ public class CustomerControllerTest {
 		final Customer customer = new Customer(1L, "Harry", "Harrison");
 		
 		when(utils.getLong()).thenReturn(1L);
-		when(dao.readCustomer(1L)).thenReturn(customer);
+		when(dao.read(1L)).thenReturn(customer);
 		
 		assertEquals(customer, controller.read());
-		verify(dao, times(1)).readCustomer(1L);
+		verify(dao, times(1)).read(1L);
 	}
 	
 	@Test
@@ -72,10 +72,10 @@ public class CustomerControllerTest {
 		final Customer customer = new Customer(1L, "Harry", "Harrison");
 		
 		when(utils.getLong()).thenReturn(10L);
-		when(dao.readCustomer(10L)).thenReturn(null);
+		when(dao.read(10L)).thenReturn(null);
 		
 		assertNotEquals(customer, controller.read());
-		verify(dao, times(1)).readCustomer(10L);
+		verify(dao, times(1)).read(10L);
 	}
 	
 	@Test

@@ -68,7 +68,7 @@ public class OrderDAO implements Dao<Order> {
 		return new ArrayList<>();
 	}
 
-	public Order readOrder(Long id) {
+	public Order read(Long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("SELECT * FROM ims.orders WHERE order_id =" + id);) {

@@ -47,7 +47,7 @@ public class CustomerDAOTest {
 	@Test
 	public void testRead() {
 		final long ID = 1L;
-		assertEquals(new Customer(ID, "Harry", "Harrison"), DAO.readCustomer(ID));
+		assertEquals(new Customer(ID, "Harry", "Harrison"), DAO.read(ID));
 	}
 
 	@Test

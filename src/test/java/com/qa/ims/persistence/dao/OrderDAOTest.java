@@ -49,7 +49,7 @@ public class OrderDAOTest {
 	
 	@Test
 	public void testReadOrder() {
-		assertNotEquals(null, dao.readOrder(1L));
+		assertNotEquals(null, dao.read(1L));
 	}
 	
 	

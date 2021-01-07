@@ -39,7 +39,7 @@ public class ItemController implements CrudController<Item>{
 	public Item read() {
 		LOGGER.info("Please enter the ID of the item you wish to view");
 		long id = utils.getLong();
-		Item item = itemDAO.readItem(id);
+		Item item = itemDAO.read(id);
 		if(item != null)
 		{
 			LOGGER.info(item.toString());

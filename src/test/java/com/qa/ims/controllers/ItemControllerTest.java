@@ -68,10 +68,10 @@ public class ItemControllerTest {
 		final Item item = new Item(1L, "Banana", 100L, 1.50);
 		
 		when(utils.getLong()).thenReturn(1L);
-		when(dao.readItem(1L)).thenReturn(item);
+		when(dao.read(1L)).thenReturn(item);
 		
 		assertEquals(item, controller.read());
-		verify(dao, times(1)).readItem(1L);
+		verify(dao, times(1)).read(1L);
 	}
 	
 	@Test
@@ -79,10 +79,10 @@ public class ItemControllerTest {
 		final Item item = new Item(1L, "Banana", 100L, 1.50);
 		
 		when(utils.getLong()).thenReturn(100L);
-		when(dao.readItem(100L)).thenReturn(null);
+		when(dao.read(100L)).thenReturn(null);
 		
 		assertNotEquals(item, controller.read());
-		verify(dao, times(1)).readItem(100L);
+		verify(dao, times(1)).read(100L);
 	}
 	
 	@Test

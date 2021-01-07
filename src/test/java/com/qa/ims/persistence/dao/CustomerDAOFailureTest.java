@@ -39,7 +39,7 @@ public class CustomerDAOFailureTest {
 	
 	@Test
 	public void testRead() {
-		assertEquals(null, DAO.readCustomer(1L));
+		assertEquals(null, DAO.read(1L));
 	}
 	
 	@Test
