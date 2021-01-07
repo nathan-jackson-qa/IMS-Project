@@ -1,4 +1,4 @@
-Coverage: 34%
+Coverage: 82.3%
 # IMS System
 
 The Inventory Management System is a command line interface that connects to an SQL server and allows the user to store and manage Customers, Items and Orders.
@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 In order to run this .jar file you will need to have java installed on your machine (Version 14 was used for development so is recommended), and must be able to run from a command line interface.
 
 ```
-Java Version 14 can be found [here](https://www.oracle.com/uk/java/technologies/javase/jdk14-archive-downloads)
+Java Version 14 can be found [here](https://www.oracle.com)
 ```
 
 ### Installing
@@ -43,13 +43,17 @@ C:\Users\Me\Project_Location\IMS_Project> java -jar IMS-System
 
 In order to run the tests for this project, simply open the cmd line in the location that the project is stored, then type mvn test and all unit tests will be carried out
 
-### Unit Tests 
-
-When running the command give in the section above, maven will automatically run all the tests for the Customer, Item and Order objects, as well as the respective Controllers and DAOs for each of those 3. This will test every line of code in each class including outcomes from every conditional throughout
-
 ```
 C:\Users\Me\Project_Location\IMS_Project> mvn test
 ```
+
+### Unit Tests 
+
+When running the command give in the section above, maven will automatically run all the tests for the Customer, Item and Order objects, as well as the respective Controllers and DAOs for each of those 3. This will test every line of code in each class including outcomes from every conditional throughout. Unit tests are those which test indiviual classes which are self contained, such as the Customer and CustomerDAO.
+
+### Integration Tests
+
+The integration tests are those which test a classes ability to interact with others to see if they send the correct output, and handle the input they receive correctly. For this project Mockoto testing was used for the Controller classes of each database table so 
 
 ## Deployment
 
