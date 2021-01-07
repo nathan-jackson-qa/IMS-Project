@@ -11,6 +11,10 @@ public interface Dao<T> {
 	T create(T t);
 
 	T update(T t);
+	
+	T readLatest();
+	
+	T read(Long id);
 
 	int delete(long id);
 

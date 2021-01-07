@@ -1,6 +1,10 @@
 package com.qa.ims.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.qa.ims.controller.CustomerController;
@@ -31,56 +34,99 @@ public class CustomerControllerTest {
 
 	@Test
 	public void testCreate() {
-		final String F_NAME = "barry", L_NAME = "scott";
-		final Customer created = new Customer(F_NAME, L_NAME);
+		final String firstName = "barry", surname = "scott";
+		final Customer created = new Customer(firstName, surname);
 
-		Mockito.when(utils.getString()).thenReturn(F_NAME, L_NAME);
-		Mockito.when(dao.create(created)).thenReturn(created);
+		when(utils.getString()).thenReturn(firstName, surname);
+		when(dao.create(created)).thenReturn(created);
 
 		assertEquals(created, controller.create());
-
-		Mockito.verify(utils, Mockito.times(2)).getString();
-		Mockito.verify(dao, Mockito.times(1)).create(created);
+		verify(utils, times(2)).getString();
+		verify(dao, times(1)).create(created);
 	}
 
 	@Test
 	public void testReadAll() {
 		List<Customer> customers = new ArrayList<>();
-		customers.add(new Customer(1L, "jordan", "harrison"));
+		customers.add(new Customer(1L, "Harry", "Harrison"));
 
-		Mockito.when(dao.readAll()).thenReturn(customers);
+		when(dao.readAll()).thenReturn(customers);
 
 		assertEquals(customers, controller.readAll());
-
-		Mockito.verify(dao, Mockito.times(1)).readAll();
+		verify(dao, times(1)).readAll();
 	}
 
+	@Test
+	public void testRead() {
+		final Customer customer = new Customer(1L, "Harry", "Harrison");
+		
+		when(utils.getLong()).thenReturn(1L);
+		when(dao.read(1L)).thenReturn(customer);
+		
+		assertEquals(customer, controller.read());
+		verify(dao, times(1)).read(1L);
+	}
+	
+	@Test
+	public void testFalseRead() {
+		final Customer customer = new Customer(1L, "Harry", "Harrison");
+		
+		when(utils.getLong()).thenReturn(10L);
+		when(dao.read(10L)).thenReturn(null);
+		
+		assertNotEquals(customer, controller.read());
+		verify(dao, times(1)).read(10L);
+	}
+	
 	@Test
 	public void testUpdate() {
 		Customer updated = new Customer(1L, "chris", "perrins");
 
-		Mockito.when(this.utils.getLong()).thenReturn(1L);
-		Mockito.when(this.utils.getString()).thenReturn(updated.getFirstName(), updated.getSurname());
-		Mockito.when(this.dao.update(updated)).thenReturn(updated);
+		when(utils.getLong()).thenReturn(updated.getId());
+		when(utils.getString()).thenReturn(updated.getFirstName(), updated.getSurname());
+		when(dao.update(updated)).thenReturn(updated);
 
 		assertEquals(updated, this.controller.update());
-
-		Mockito.verify(this.utils, Mockito.times(1)).getLong();
-		Mockito.verify(this.utils, Mockito.times(2)).getString();
-		Mockito.verify(this.dao, Mockito.times(1)).update(updated);
+		verify(utils, times(1)).getLong();
+		verify(utils, times(2)).getString();
+		verify(dao, times(1)).update(updated);
+	}
+	
+	@Test public void testFalseUpdate() {		
+		Customer updated = new Customer(10L, "Manny", "Mammoth");
+		
+		when(utils.getLong()).thenReturn(10L);
+		when(utils.getString()).thenReturn("Manny","Mammoth");
+		when(dao.update(updated)).thenReturn(null);
+		
+		assertNotEquals(updated, controller.update());
+		verify(utils, times(1)).getLong();
+		verify(utils, times(2)).getString();
+		verify(dao, times(1)).update(updated);
 	}
 
 	@Test
 	public void testDelete() {
 		final long ID = 1L;
 
-		Mockito.when(utils.getLong()).thenReturn(ID);
-		Mockito.when(dao.delete(ID)).thenReturn(1);
+		when(utils.getLong()).thenReturn(ID);
+		when(dao.delete(ID)).thenReturn(1);
 
-		assertEquals(1L, this.controller.delete());
+		assertEquals(1L, controller.delete());
+		verify(utils, times(1)).getLong();
+		verify(dao,times(1)).delete(ID);
+	}
+	
+	@Test
+	public void testFalseDelete() {
+		final long ID = 100L;
 
-		Mockito.verify(utils, Mockito.times(1)).getLong();
-		Mockito.verify(dao, Mockito.times(1)).delete(ID);
+		when(utils.getLong()).thenReturn(ID);
+		when(dao.delete(ID)).thenReturn(0);
+
+		assertNotEquals(1, controller.delete());
+		verify(utils, times(1)).getLong();
+		verify(dao, times(1)).delete(ID);
 	}
 
 }

@@ -38,6 +38,23 @@ public class CustomerController implements CrudController<Customer> {
 		return customers;
 	}
 
+	@Override
+	public Customer read() {
+		LOGGER.info("Please enter the ID of the customer you wish to view");
+		long id = utils.getLong();
+		Customer customer = customerDAO.read(id);
+		if(customer != null) 
+		{
+			LOGGER.info(customer.toString() + "\n");
+			return customer;
+		}
+		else
+		{
+			LOGGER.info("This ID does not match that of a customer in the database so could not be retrieved\n");
+			return null;
+		}
+	}
+
 	/**
 	 * Creates a customer by taking in user input
 	 */
@@ -45,7 +62,7 @@ public class CustomerController implements CrudController<Customer> {
 	public Customer create() {
 		LOGGER.info("Please enter a first name");
 		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
+		LOGGER.info("Please enter a last name");
 		String surname = utils.getString();
 		Customer customer = customerDAO.create(new Customer(firstName, surname));
 		LOGGER.info("Customer created");
@@ -61,11 +78,19 @@ public class CustomerController implements CrudController<Customer> {
 		Long id = utils.getLong();
 		LOGGER.info("Please enter a first name");
 		String firstName = utils.getString();
-		LOGGER.info("Please enter a surname");
+		LOGGER.info("Please enter a last name");
 		String surname = utils.getString();
 		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
-		LOGGER.info("Customer Updated");
-		return customer;
+		if(customer!=null) 
+		{
+			LOGGER.info("Customer Updated!\n");
+			return customer;
+		}
+		else
+		{
+			LOGGER.info("Update could not be carried out due to the ID not matching a customer in the database\n");
+			return null;
+		}
 	}
 
 	/**
@@ -77,7 +102,17 @@ public class CustomerController implements CrudController<Customer> {
 	public int delete() {
 		LOGGER.info("Please enter the id of the customer you would like to delete");
 		Long id = utils.getLong();
-		return customerDAO.delete(id);
+		int returned = customerDAO.delete(id);
+		if(returned == 0)
+		{
+			LOGGER.info("Customer could not be deleted as that customer ID does not exist\n");
+		}
+		else
+		{
+			LOGGER.info("Customer deleted!\n");
+		}
+		return returned;
 	}
+
 
 }

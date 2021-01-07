@@ -19,13 +19,18 @@ public class DBUtils {
 
 	private final String DB_PASS;
 
-	private final String DB_URL = "jdbc:mysql://localhost:3306/ims";
+	private final String DB_URL = "jdbc:mysql://35.223.104.73:3306/";
+	
+	public static boolean connected = false;
 
 	private DBUtils(String username, String password) {
 		this.DB_USER = username;
 		this.DB_PASS = password;
 
-		init();
+		if(init() != 0)
+		{
+			connected = true;
+		}
 	}
 
 	public int init() {
@@ -81,3 +86,4 @@ public class DBUtils {
 	}
 
 }
+
