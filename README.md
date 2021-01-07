@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 In order to run this .jar file you will need to have java installed on your machine (Version 14 was used for development so is recommended), and must be able to run from a command line interface.
 
 ```
-Java Version 14 can be found [here](https://www.oracle.com)
+Java Version 14 can be found on the oracle website here: <https://www.oracle.com>
 ```
 
 ### Installing
@@ -38,6 +38,8 @@ Step 3: To Run the application simply open the project folder and run the IMS-Sy
 C:\Users\Me\Project_Location> cd IMS_Project
 C:\Users\Me\Project_Location\IMS_Project> java -jar IMS-System
 ```
+# Connection to own database
+Step 4: To alter this program to connect to your own database, simply open the DBUtils file and edit the DB_URL, DB_USER and DB_PASS, to the url, username and password of your database
 
 ## Running the tests
 
@@ -80,6 +82,6 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* This project was possible due to the wonderful teachings of the QA staff who included, in no particlar order:
+* Alan Davis, Piers Barber, Vinesh Ghela, Aswene Sivaraj, Edward Reynolds, Pawel Stypulkowski
+
