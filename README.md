@@ -1,4 +1,6 @@
 Coverage: 82.3%
+Jira Kanban Board: <https://20novsoftware2-nathan-jackson.atlassian.net/secure/RapidBoard.jspa?rapidView=3&projectKey=IM>
+
 # IMS System
 
 The Inventory Management System is a command line interface that connects to an SQL server and allows the user to store and manage Customers, Items and Orders.
